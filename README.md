@@ -8,9 +8,8 @@ JQuery 1.5+
 ## Example
 
 var client = new threeTapsClient();
-var items = client.search.search({text:'honda', category:'VAUT'}, function(results){
-	console.log(results);
-});
+
+var items = client.search.search({text:'honda', category:'VAUT'}, function(results){console.log(results)});
 
 ## License
 
