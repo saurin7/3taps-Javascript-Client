@@ -7,17 +7,10 @@ JQuery 1.5+
 
 ## Example
 
-<script src="jquery.js" type="text/javascript"></script>
-<script src="3taps.js" type="text/javascript"></script>
-<script type="text/javascript">
-
 var client = new threeTapsClient()
 var items = client.search.search({text:'honda', category:'VAUT'}, function(results){
 	console.log(results)
 })
-
-
-</script>
 
 ## License
 
