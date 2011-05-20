@@ -1,5 +1,6 @@
 # 3taps API Javascript Wrapper
 
+Originally developed by Brandon Goldman (http://goldmaninteractive.com).
 
 ## Dependency
 
@@ -7,9 +8,7 @@ JQuery 1.5+
 
 ## Example
 
-var client = new threeTapsClient();
-
-var items = client.search.search({text:'honda', category:'VAUT'}, function(results){console.log(results)});
+var items = new threeTapsClient("YOUR API KEY").search.search({text:'honda', category:'VAUT'}, function(results){console.log(results)});
 
 ## License
 
