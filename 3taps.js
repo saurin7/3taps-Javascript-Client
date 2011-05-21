@@ -22,7 +22,7 @@ threeTapsClient.prototype = {
 	request: function(path, method, params, callback) {
 		params = params || {};
 
-		var url = 'http://api.3taps.com' + path + method + '?authID=' + this.authId + '&callback=?';
+		var url = 'http://api.3taps.com' + path + method + (method.indexOf('?') == -1 ? '?' : '') + 'authID=' + this.authId + '&callback=?';
 
 		$.getJSON(url, params, function(response) {
 				callback(response);
@@ -31,32 +31,6 @@ threeTapsClient.prototype = {
 		return true;
 	}
 };
-
-var threeTapsGeocoderClient = function(authId) {
-	if (authId instanceof threeTapsClient) {
-		this.client = authId;
-	} else {
-		this.client = new threeTapsClient(authId);
-	}
-};
-
-threeTapsGeocoderClient.prototype = {
-	client: null,
-
-	path: '/geocoder/',
-	
-	geocode: function(data, callback) {
-		var params = {
-			authID: this.client.authId
-			,data: data
-		};
-		return this.client.request(this.path, 'geocode', params, function(results) {
-			callback(results);
-		});
-	}
-};
-
-threeTapsClient.register('geocoder', threeTapsGeocoderClient);
 
 var threeTapsReferenceClient = function(authId) {
 	if (authId instanceof threeTapsClient) {
@@ -71,20 +45,23 @@ threeTapsReferenceClient.prototype = {
 
 	path: '/reference/',
 	
-	category: function(callback) {
-		return this.client.request(this.path, 'category', null, function(results) {
+	category: function(callback, code, annotations) {
+		code = code || '';
+		return this.client.request(this.path, 'category/' + code + '?annotations=' + annotations + '&', null, function(results) {
 			callback(results);
 		});
 	},
 
-	location: function(callback) {
-		return this.client.request(this.path, 'location', null, function(results) {
+	location: function(callback, code) {
+		code = code || '';
+		return this.client.request(this.path, 'location/' + code, null, function(results) {
 			callback(results);
 		});
 	},
 
-	source: function(callback) {
-		return this.client.request(this.path, 'source/get', null, function(results) {
+	source: function(callback, code) {
+		code = code || '';
+		return this.client.request(this.path, 'source/' + code, null, function(results) {
 			callback(results);
 		});
 	}
@@ -108,23 +85,22 @@ threeTapsPostingClient.prototype = {
 	
 	'delete': function(data, callback) {
 		var params = {
-			authID: this.client.authId
-			,data: data
+			data: JSON.stringify(data)
 		};
 		return this.client.request(this.path, 'delete', params, function(results) {
 			callback(results);
 		});
 	},
 	
-	get: function(postID, callback) {
-		return this.client.request(this.path, 'get/' + postID, null, function(results) {
+	get: function(postKey, callback) {
+		return this.client.request(this.path, 'get/' + postKey, null, function(results) {
 			callback(results);
 		});
 	},
 	
 	create: function(data, callback) {
 		var params = {
-			data: data
+			data: JSON.stringify(data)
 		};
 		return this.client.request(this.path, 'create', params, function(results) {
 			callback(results);
@@ -133,8 +109,7 @@ threeTapsPostingClient.prototype = {
 	
 	update: function(data, callback) {
 		var params = {
-			authID: this.client.authId
-			,data: data
+			data: JSON.stringify(data)
 		};
 		return this.client.request(this.path, 'update', params, function(results) {
 			callback(results);
@@ -168,7 +143,6 @@ threeTapsNotificationsClient.prototype = {
       callback(results);
     });
   },
-
 
 	'get': function(params, callback) {
     return this.client.request(this.path, 'get', params, function(results) {
@@ -238,34 +212,37 @@ threeTapsStatusClient.prototype = {
 
 	path: '/status/',
 	
-	update: function(data, callback) {
-		var params = {
-			authID: this.client.authId
-			,data: data
-		};
+	update: function(postings, callback) {
+		params = {postings: JSON.stringify(postings)};
 		return this.client.request(this.path, 'update', params, function(results) {
 			callback(results);
 		});
 	},
 	
-	get: function(data, callback) {
-		var params = {
-			authID: this.client.authId
-			,data: data
-		};
+	get: function(postings, callback) {
+		params = {postings: JSON.stringify(postings)};
 		return this.client.request(this.path, 'get', params, function(results) {
 			callback(results);
 		});
 	},
 
 	system: function(callback) {
-		var params = {
-			authID: this.client.authId
-		};
-		return this.client.request(this.path, 'system', params, function(results) {
+		return this.client.request(this.path, 'system', null, function(results) {
 			callback(results);
 		});
 	}
 };
 
 threeTapsClient.register('status', threeTapsStatusClient);
+
+// Override date to have threetaps format
+Date.formatThreeTaps = function (date) {
+	var formatted = date.getFullYear() + '/' 
+		+ (date.getMonth() + 1) + '/'
+		+ date.getDate() + ' '
+		+ date.getHours() + ':'
+		+ date.getMinutes() + ':'
+		+ date.getSeconds();
+
+	return formatted;
+};

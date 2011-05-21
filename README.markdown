@@ -1,10 +1,11 @@
 # 3taps API Javascript Wrapper
 
-Originally developed by Brandon Goldman (http://goldmaninteractive.com).
+Originally created by Brandon Goldman http://goldmaninteractive.com
 
 ## Dependency
 
-JQuery 1.5+
+JQuery 1.5+ http://jquery.com/
+json2 https://github.com/douglascrockford/JSON-js
 
 ## Example
 
