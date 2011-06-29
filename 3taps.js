@@ -24,9 +24,7 @@ threeTapsClient.prototype = {
 
 		var url = 'http://api.3taps.com' + path + method + (method.indexOf('?') == -1 ? '?' : '') + 'authID=' + this.authId + '&callback=?';
 
-		$.getJSON(url, params, function(response) {
-				callback(response);
-		});
+		$.getJSON(url, params, callback);
 			
 		return true;
 	}
@@ -47,23 +45,17 @@ threeTapsReferenceClient.prototype = {
 	
 	category: function(callback, code, annotations) {
 		code = code || '';
-		return this.client.request(this.path, 'category/' + code + '?annotations=' + annotations + '&', null, function(results) {
-			callback(results);
-		});
+		return this.client.request(this.path, 'category/' + code + '?annotations=' + annotations + '&', null, callback);
 	},
 
 	location: function(callback, code) {
 		code = code || '';
-		return this.client.request(this.path, 'location/' + code, null, function(results) {
-			callback(results);
-		});
+		return this.client.request(this.path, 'location/' + code, null, callback);
 	},
 
 	source: function(callback, code) {
 		code = code || '';
-		return this.client.request(this.path, 'source/' + code, null, function(results) {
-			callback(results);
-		});
+		return this.client.request(this.path, 'source/' + code, null, callback);
 	}
 };
 
@@ -87,33 +79,25 @@ threeTapsPostingClient.prototype = {
 		var params = {
 			data: JSON.stringify(data)
 		};
-		return this.client.request(this.path, 'delete', params, function(results) {
-			callback(results);
-		});
+		return this.client.request(this.path, 'delete', params, callback);
 	},
 	
 	get: function(postKey, callback) {
-		return this.client.request(this.path, 'get/' + postKey, null, function(results) {
-			callback(results);
-		});
+		return this.client.request(this.path, 'get/' + postKey, null, callback);
 	},
 	
 	create: function(data, callback) {
 		var params = {
 			data: JSON.stringify(data)
 		};
-		return this.client.request(this.path, 'create', params, function(results) {
-			callback(results);
-		});
+		return this.client.request(this.path, 'create', params, callback);
 	},
 	
 	update: function(data, callback) {
 		var params = {
 			data: JSON.stringify(data)
 		};
-		return this.client.request(this.path, 'update', params, function(results) {
-			callback(results);
-		});
+		return this.client.request(this.path, 'update', params, callback);
 	}
 };
 
@@ -133,27 +117,19 @@ threeTapsNotificationsClient.prototype = {
 	path: '/notifications/',
 
 	firehose: function(params, callback) {
-    return this.client.request(this.path, 'firehose', params, function(results) {
-      callback(results);
-    });
+    return this.client.request(this.path, 'firehose', params, callback);
   },
 
 	'delete': function(params, callback) {
-    return this.client.request(this.path, 'delete', params, function(results) {
-      callback(results);
-    });
+    return this.client.request(this.path, 'delete', params, callback);
   },
 
-	'get': function(params, callback) {
-    return this.client.request(this.path, 'get', params, function(results) {
-      callback(results);
-    });
+	get: function(params, callback) {
+    return this.client.request(this.path, 'get', params, callback);
   },
 
 	create: function(params, callback) {
-		return this.client.request(this.path, 'create', params, function(results) {
-			callback(results);
-		});
+		return this.client.request(this.path, 'create', params, callback);
 	}
 };
 
@@ -172,28 +148,20 @@ threeTapsSearchClient.prototype = {
 
 	path: '/search/',
 	
-	'search': function(params, callback) {
-		return this.client.request(this.path, '', params, function(results) {
-			callback(results);
-		});
+	search: function(params, callback) {
+		return this.client.request(this.path, '', params, callback);
 	},
 	
 	range: function(params, callback) {
-		return this.client.request(this.path, 'range', params, function(results) {
-			callback(results);
-		});
+		return this.client.request(this.path, 'range', params, callback);
 	},
 
 	summary: function(params, callback) {
-		return this.client.request(this.path, 'summary', params, function(results) {
-			callback(results);
-		});
+		return this.client.request(this.path, 'summary', params, callback);
 	},
 
 	count: function(params, callback) {
-		return this.client.request(this.path, 'count', params, function(results) {
-			callback(results);
-		});
+		return this.client.request(this.path, 'count', params, callback);
 	},
 };
 
@@ -214,22 +182,16 @@ threeTapsStatusClient.prototype = {
 	
 	update: function(postings, callback) {
 		params = {postings: JSON.stringify(postings)};
-		return this.client.request(this.path, 'update', params, function(results) {
-			callback(results);
-		});
+		return this.client.request(this.path, 'update', params, callback);
 	},
 	
 	get: function(postings, callback) {
 		params = {postings: JSON.stringify(postings)};
-		return this.client.request(this.path, 'get', params, function(results) {
-			callback(results);
-		});
+		return this.client.request(this.path, 'get', params, callback);
 	},
 
 	system: function(callback) {
-		return this.client.request(this.path, 'system', null, function(results) {
-			callback(results);
-		});
+		return this.client.request(this.path, 'system', null, callback);
 	}
 };
 
