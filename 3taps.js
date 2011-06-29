@@ -117,16 +117,16 @@ threeTapsNotificationsClient.prototype = {
 	path: '/notifications/',
 
 	firehose: function(params, callback) {
-    return this.client.request(this.path, 'firehose', params, callback);
-  },
+		return this.client.request(this.path, 'firehose', params, callback);
+	},
 
 	'delete': function(params, callback) {
-    return this.client.request(this.path, 'delete', params, callback);
-  },
+		return this.client.request(this.path, 'delete', params, callback);
+	},
 
 	get: function(params, callback) {
-    return this.client.request(this.path, 'get', params, callback);
-  },
+		return this.client.request(this.path, 'get', params, callback);
+	},
 
 	create: function(params, callback) {
 		return this.client.request(this.path, 'create', params, callback);
