@@ -111,30 +111,6 @@ var threeTapsNotificationsClient = function(authId) {
 	}
 };
 
-threeTapsNotificationsClient.prototype = {
-	client: null,
-
-	path: '/notifications/',
-
-	firehose: function(params, callback) {
-		return this.client.request(this.path, 'firehose', params, callback);
-	},
-
-	'delete': function(params, callback) {
-		return this.client.request(this.path, 'delete', params, callback);
-	},
-
-	get: function(params, callback) {
-		return this.client.request(this.path, 'get', params, callback);
-	},
-
-	create: function(params, callback) {
-		return this.client.request(this.path, 'create', params, callback);
-	}
-};
-
-threeTapsClient.register('notifications', threeTapsNotificationsClient);
-
 var threeTapsSearchClient = function(authId) {
 	if (authId instanceof threeTapsClient) {
 		this.client = authId;
@@ -199,12 +175,21 @@ threeTapsClient.register('status', threeTapsStatusClient);
 
 // Override date to have threetaps format
 Date.formatThreeTaps = function (date) {
+
+	var zeroFill = function(number, width) {
+		width -= number.toString().length;
+		if (width > 0) {
+			return new Array(width + (/\./.test(number) ? 2 : 1)).join('0') + number;
+		}
+		return number;
+	}
+
 	var formatted = date.getFullYear() + '/' 
-		+ (date.getMonth() + 1) + '/'
-		+ date.getDate() + ' '
-		+ date.getHours() + ':'
-		+ date.getMinutes() + ':'
-		+ date.getSeconds();
+		+ zeroFill((date.getMonth() + 1), 2) + '/'
+		+ zeroFill(date.getDate(), 2) + ' '
+		+ zeroFill(date.getHours(), 2) + ':'
+		+ zeroFill(date.getMinutes(), 2) + ':'
+		+ zeroFill(date.getSeconds(), 2);
 
 	return formatted;
 };

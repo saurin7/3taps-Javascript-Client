@@ -6,9 +6,7 @@ describe('3taps', function() {
 		client = new threeTapsClient('jmrfhu59cnmtnzusshd62pbg');
 	});
 
-	/*******************
- 	 * SEARCH API TESTS
-	 *******************/
+
 	it('should be able to execute /search', function() {
 
 		var self = this;
