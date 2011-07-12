@@ -21,6 +21,10 @@ threeTapsClient.prototype = {
 
 	request: function(path, method, params, callback) {
 		params = params || {};
+		$.each(params, function(k, v) {
+			if (v != null && typeof v === "object")
+				params[k] = JSON.stringify(v);
+		});
 
 		var url = 'http://api.3taps.com' + path + method + (method.indexOf('?') == -1 ? '?' : '') + 'authID=' + this.authId + '&callback=?';
 
