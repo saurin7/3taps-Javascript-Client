@@ -12,7 +12,23 @@ Jasmine for unit testing. http://pivotal.github.com/jasmine/
 
 ## Example
 
-var items = new threeTapsClient("YOUR API KEY").search.search({text:'honda', category:'VAUT'}, function(results){console.log(results)});
+	<script language="javascript">
+		var client = new threeTapsClient('your_api_key');
+
+		client.search.search({
+			annotations: '{source_loc:washingtondc}'
+		});
+
+		client.search.count({
+			annotations: '{source_loc:washingtondc}'
+		});
+
+		client.search.summary({
+			annotations: '{source_loc:washingtondc}'
+		});
+
+		client.reference.categories();
+	</script>
 
 ## License
 
