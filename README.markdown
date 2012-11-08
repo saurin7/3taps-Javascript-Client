@@ -12,6 +12,8 @@ Jasmine for unit testing. http://pivotal.github.com/jasmine/
 
 ## Example
 
+	<script src="3taps.js" type="text/javascript"></script>
+
 	<script language="javascript">
 		var client = new threeTapsClient('your_api_key');
 
