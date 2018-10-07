@@ -8,7 +8,7 @@ JQuery 1.5+ http://jquery.com/
 
 json2 https://github.com/douglascrockford/JSON-js
 
-Jasmine for unit testing. http://pivotal.github.com/jasmine/
+Jasmine for unit testing. https://jasmine.github.io/
 
 ## Example
 
